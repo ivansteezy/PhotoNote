@@ -1,14 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:columnCount="3"
+    android:rowCount="3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddPhotosFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Agregar fotos fragment" />
+        android:layout_row="1"
+        android:layout_column="2"
+        android:gravity="center"
+        android:orientation="vertical">
 
-</FrameLayout>
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="20dp"
+                android:src="@drawable/ic_launcher_background" />
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="1">
+                <EditText
+                    android:layout_column="0"
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Modelo de la camara"/>
+
+                <EditText
+                    android:layout_column="1"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:hint="No. de disparo"/>
+            </GridLayout>
+
+            <GridLayout
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:rowCount="1">
+                <Spinner
+                    android:id="@+id/isoSpinner"
+                    android:layout_column="0"
+                    android:layout_width="133dp"
+                    android:layout_height="wrap_content" />
+
+                <Spinner
+                    android:id="@+id/speedSpinner"
+                    android:layout_column="1"
+                    android:layout_width="133dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Velocidad"/>
+
+                <Spinner
+                    android:id="@+id/apertureSpinner"
+                    android:layout_column="2"
+                    android:layout_width="133dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Apertura"/>
+            </GridLayout>
+
+            <GridLayout
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="1">
+                <EditText
+                    android:layout_column="0"
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Lente"/>
+
+                <Spinner
+                    android:id="@+id/focalLenghtSpinner"
+                    android:layout_column="1"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Distancia focal"/>
+            </GridLayout>
+
+        <EditText
+            android:layout_marginTop="40dp"
+            android:layout_column="1"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:hint="Comentarios"/>
+        </LinearLayout>
+</GridLayout>

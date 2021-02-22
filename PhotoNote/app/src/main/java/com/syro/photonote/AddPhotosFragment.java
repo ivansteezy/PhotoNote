@@ -7,58 +7,55 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddPhotosFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AddPhotosFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    String[] shutterSpeed = new String[]{"Velocidad", "1/1000", "1/500", "1/250", "1/125", "1/60",
+                                         "1/30", "1/15", "1/8", "1/4", "1/2", "1'", "Bulb"};
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    String[] apertures = new String[]{"Apertura", "f/32", "f/22",  "f/16",  "f/11",
+                                     "f/8",  "f/5.6", "f/4",   "f/2.8",
+                                     "f/2",  "f/1.4", "f/1.2", "f/1" };
 
+    String[] lens = new String[]{"Distancia foc.", "12mm", "24mm", "50mm",
+                                 "70mm", "135mm", "200mm"};
+
+    String[] isos = new String[]{"ISO", "6400", "3200", "1600", "800",
+                                 "400", "200", "100", "50", "25"};
     public AddPhotosFragment() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddPhotosFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AddPhotosFragment newInstance(String param1, String param2) {
-        AddPhotosFragment fragment = new AddPhotosFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_photos, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_photos, container, false);
+        Spinner isoSpinner = view.findViewById(R.id.isoSpinner);
+        Spinner speedSpinner = view.findViewById(R.id.speedSpinner);
+        Spinner apertureSpinner = view.findViewById(R.id.apertureSpinner);
+        Spinner lensSpinner = view.findViewById(R.id.focalLenghtSpinner);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, isos);
+        isoSpinner.setAdapter(adapter);
+
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, shutterSpeed);
+        speedSpinner.setAdapter(adapter);
+
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, apertures);
+        apertureSpinner.setAdapter(adapter);
+
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, apertures);
+        apertureSpinner.setAdapter(adapter);
+
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, lens);
+        lensSpinner.setAdapter(adapter);
+        return view;
     }
 }
