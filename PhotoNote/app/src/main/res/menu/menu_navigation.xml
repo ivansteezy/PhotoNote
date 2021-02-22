@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/addPhotoItem"
+        android:title="Agregar foto"
+        android:icon="@drawable/ic_add_photo"/>
+
+    <item
+        android:id="@+id/myPhotosItem"
+        android:title="Mis fotos"
+        android:icon="@drawable/ic_my_photos"/>
+
+    <item
+        android:id="@+id/myProfileItem"
+        android:title="Mi perfil"
+        android:icon="@drawable/ic_profile"/>
+</menu>

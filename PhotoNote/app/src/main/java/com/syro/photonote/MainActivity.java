@@ -54,4 +54,10 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = alert.create();
         dialog.show();
     }
+
+    public void OpenHomeActivity(View view)
+    {
+        Intent myIntent = new Intent(MainActivity.this, HomeMenu.class);
+        MainActivity.this.startActivity(myIntent);
+    }
 }
