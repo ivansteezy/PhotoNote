@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 public class AddPhotosFragment extends Fragment {
@@ -41,6 +42,7 @@ public class AddPhotosFragment extends Fragment {
         Spinner speedSpinner = view.findViewById(R.id.speedSpinner);
         Spinner apertureSpinner = view.findViewById(R.id.apertureSpinner);
         Spinner lensSpinner = view.findViewById(R.id.focalLenghtSpinner);
+        Button saveButton = view.findViewById(R.id.savePhotoDataButton);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, isos);
         isoSpinner.setAdapter(adapter);
@@ -56,6 +58,15 @@ public class AddPhotosFragment extends Fragment {
 
         adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, lens);
         lensSpinner.setAdapter(adapter);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Here build a model and send it to the database
+                System.out.println(isoSpinner.getSelectedItem().toString());
+            }
+        });
+
         return view;
     }
 }
