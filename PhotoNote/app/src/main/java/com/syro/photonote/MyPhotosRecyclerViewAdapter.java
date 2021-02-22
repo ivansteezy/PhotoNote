@@ -1,5 +1,6 @@
 package com.syro.photonote;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,19 @@ import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.Console;
 
 public class MyPhotosRecyclerViewAdapter extends RecyclerView.Adapter<MyPhotosRecyclerViewAdapter.MyPhotoViewHolder> {
     private int []m_items;
+    Context m_context;
 
-    public MyPhotosRecyclerViewAdapter(int[] items) {
+    public MyPhotosRecyclerViewAdapter(int[] items, Context context) {
+        this.m_context = context;
         this.m_items = items;
     }
 
@@ -31,6 +37,10 @@ public class MyPhotosRecyclerViewAdapter extends RecyclerView.Adapter<MyPhotosRe
             @Override
             public void onClick(View v) {
                 System.out.println("Se ha presionado un item: " + myPhotoViewHolder.getAdapterPosition());
+
+                Fragment mFragment = new PhotoInfo(myPhotoViewHolder.getAdapterPosition());         //Here pass de model of a photo
+                FragmentManager fragmentManager = ((AppCompatActivity)m_context).getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.contentFrame, mFragment).commit();
             }
         });
 

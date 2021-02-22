@@ -32,7 +32,7 @@ public class MyPhotosFragment extends Fragment {
         m_recyclerView = (RecyclerView)view.findViewById(R.id.myPhotosRecyclerView);
         m_layoutManager = new GridLayoutManager(getActivity(), 2);
         m_recyclerView.setLayoutManager(m_layoutManager);
-        recyclerViewAdapter = new MyPhotosRecyclerViewAdapter(arr); // in this constructor we should put strings with path to images given by sqlite instead of ints ids
+        recyclerViewAdapter = new MyPhotosRecyclerViewAdapter(arr, getActivity()); // in this constructor we should put strings with path to images given by sqlite instead of ints ids
         m_recyclerView.setAdapter(recyclerViewAdapter); //here crash
         m_recyclerView.setHasFixedSize(true);
         return view;
