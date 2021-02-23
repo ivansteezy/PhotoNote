@@ -1,21 +1,7 @@
 package com.syro.photonote;
 
 public class PhotoModel {
-    public PhotoModel(String photoReference, String cameraModel, String cameraFilm,    String iso,
-                      String speedShutter,   String aperture,    String lightComments, String lens,
-                      String focalLenght,    String numberOfShoot)
-    {
-        this.photoReference = photoReference;
-        this.cameraModel = cameraModel;
-        this.cameraFilm = cameraFilm;
-        this.iso = iso;
-        this.speedShutter = speedShutter;
-        this.aperture = aperture;
-        this.lightComments = lightComments;
-        this.lens = lens;
-        this.focalLenght = focalLenght;
-        this.numberOfShoot = numberOfShoot;
-    }
+    public PhotoModel(){}
 
     public String getPhotoReference() {
         return photoReference;
@@ -31,14 +17,6 @@ public class PhotoModel {
 
     public void setCameraModel(String cameraModel) {
         this.cameraModel = cameraModel;
-    }
-
-    public String getCameraFilm() {
-        return cameraFilm;
-    }
-
-    public void setCameraFilm(String cameraFilm) {
-        this.cameraFilm = cameraFilm;
     }
 
     public String getIso() {
@@ -97,14 +75,22 @@ public class PhotoModel {
         this.numberOfShoot = numberOfShoot;
     }
 
-    String photoReference;
-    String cameraModel;
-    String cameraFilm;
-    String iso;
-    String speedShutter;
-    String aperture;
-    String lightComments;
-    String lens;
-    String focalLenght;
-    String numberOfShoot;
+    public String getPhotoLocation() {
+        return photoLocation;
+    }
+
+    public void setPhotoLocation(String photoLocation) {
+        this.photoLocation = photoLocation;
+    }
+
+    private String photoReference;
+    private String cameraModel;
+    private String iso;
+    private String speedShutter;
+    private String aperture;
+    private String lightComments;
+    private String lens;
+    private String focalLenght;
+    private String numberOfShoot;
+    private String photoLocation;
 }

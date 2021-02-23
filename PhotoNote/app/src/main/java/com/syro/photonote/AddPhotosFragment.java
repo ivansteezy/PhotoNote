@@ -3,6 +3,8 @@ package com.syro.photonote;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -32,6 +34,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,6 +51,13 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
     private static final int GALLERY_REQUEST = 100;
     private static final int CAMERA_REQUEST  = 200;
 
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    String imageFilePath;
     String[] shutterSpeed = new String[]{"Velocidad", "1/1000", "1/500", "1/250", "1/125", "1/60",
                                          "1/30", "1/15", "1/8", "1/4", "1/2", "1'", "Bulb"};
 
@@ -64,6 +74,15 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
     CheckBox useLocationCheckBox;
     TextView textViewLocation;
     LocationManager locationManager;
+    Spinner isoSpinner;
+    Spinner speedSpinner;
+    Spinner apertureSpinner;
+    Spinner lensSpinner;
+    Button saveButton;
+    EditText cameraModelEditText;
+    EditText numberOfShootEditText;
+    EditText lensEditText;
+    EditText commentsEditText;
 
     private ImageView selectedImageView;
     Bitmap image;
@@ -82,15 +101,19 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_photos, container, false);
-        Spinner isoSpinner = view.findViewById(R.id.isoSpinner);
-        Spinner speedSpinner = view.findViewById(R.id.speedSpinner);
-        Spinner apertureSpinner = view.findViewById(R.id.apertureSpinner);
-        Spinner lensSpinner = view.findViewById(R.id.focalLenghtSpinner);
-        Button saveButton = view.findViewById(R.id.savePhotoDataButton);
+        isoSpinner = view.findViewById(R.id.isoSpinner);
+        speedSpinner = view.findViewById(R.id.speedSpinner);
+        apertureSpinner = view.findViewById(R.id.apertureSpinner);
+        lensSpinner = view.findViewById(R.id.focalLenghtSpinner);
+        saveButton = view.findViewById(R.id.savePhotoDataButton);
 
         useLocationCheckBox = view.findViewById(R.id.useLocationCheck);
         textViewLocation = view.findViewById(R.id.locationTextView);
         selectedImageView = view.findViewById(R.id.selectedImageview);
+        cameraModelEditText  = view.findViewById(R.id.cameraModelEditText);
+        numberOfShootEditText = view.findViewById(R.id.numberOfShootEditText);
+        lensEditText = view.findViewById(R.id.lensEditText);
+        commentsEditText = view.findViewById(R.id.commentsEditText);
 
         //permissions
         if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -132,9 +155,8 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
             @Override
             public void onClick(View v) {
                 //Here build a model and send it to the database
-                //SendDataToDB();
-                System.out.println(isoSpinner.getSelectedItem().toString());
                 SaveImage(image);
+                ConsolidateData();
             }
         });
 
@@ -188,12 +210,6 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
 
     public void GetImage(View view)
     {
-        //For gallery
-        //Intent intent = new Intent();
-        //intent.setType("image/*");
-        //intent.setAction(Intent.ACTION_GET_CONTENT);
-        //startActivityForResult(Intent.createChooser(intent, "Selecciona una imagen"), GALLERY_REQUEST);
-
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if(intent.resolveActivity(getActivity().getPackageManager()) != null)
         {
@@ -204,19 +220,6 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*if (requestCode == GALLERY_REQUEST && resultCode == Activity.RESULT_OK)
-        {
-            try
-            {
-                Uri selectedImage = data.getData();
-                InputStream imageStream = getActivity().getContentResolver().openInputStream(selectedImage);
-                selectedImageView.setImageBitmap(BitmapFactory.decodeStream(imageStream));
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }*/
 
         if(requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK)
         {
@@ -228,15 +231,14 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
 
     private void SaveImage(Bitmap image)
     {
-        String path = Environment.getExternalStorageDirectory() + "/DCMI/PhotoNote/";
-        File dir = new File(path);
+        verifyStoragePermissions(getActivity());
+        File filepath = Environment.getExternalStorageDirectory();
+        File dir = new File(filepath.getAbsolutePath()+"/DCIM/PhotoNote/");
+
         if(!dir.exists())
             dir.mkdirs();
 
-        String imagePath = dir.getPath() + "/test.jpg";
-        File file = new File(imagePath);
-        if (file.exists())
-            file.delete();
+        File file = new File(dir, System.currentTimeMillis()+".jpg");
 
         try
         {
@@ -245,10 +247,44 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
             out.flush();
             out.close();
 
-            System.out.println("Image saved");
+            imageFilePath = file.getPath();
+            System.out.println("Image saved in: " + file.getPath());
         }
         catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void ConsolidateData()
+    {
+        PhotoModel photoModel = new PhotoModel();
+
+        photoModel.setPhotoReference(imageFilePath);
+        photoModel.setCameraModel(cameraModelEditText.getText().toString());
+        photoModel.setIso(isoSpinner.getSelectedItem().toString());
+        photoModel.setSpeedShutter(speedSpinner.getSelectedItem().toString());
+        photoModel.setAperture(apertureSpinner.getSelectedItem().toString());
+        photoModel.setLightComments(commentsEditText.getText().toString());
+        photoModel.setLens(lensEditText.getText().toString());
+        photoModel.setFocalLenght(lensSpinner.getSelectedItem().toString());
+        photoModel.setNumberOfShoot(numberOfShootEditText.getText().toString());
+        photoModel.setPhotoLocation(textViewLocation.getText().toString());
+
+        //SendDataToDB();
+        System.out.println(photoModel);
+    }
+
+
+    public static void verifyStoragePermissions(Activity activity) {
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
         }
     }
 }
