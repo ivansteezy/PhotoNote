@@ -1,4 +1,4 @@
-package com.syro.photonote;
+package com.syro.photonote.models;
 
 public class PhotoModel {
     public PhotoModel(){}
