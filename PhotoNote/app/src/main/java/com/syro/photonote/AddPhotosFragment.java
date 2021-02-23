@@ -21,6 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +45,7 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
     String[] isos = new String[]{"ISO", "6400", "3200", "1600", "800",
                                  "400", "200", "100", "50", "25"};
 
-    Button buttonLocation;
+    CheckBox useLocationCheckBox;
     TextView textViewLocation;
     LocationManager locationManager;
 
@@ -66,7 +68,7 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
         Spinner lensSpinner = view.findViewById(R.id.focalLenghtSpinner);
         Button saveButton = view.findViewById(R.id.savePhotoDataButton);
 
-        buttonLocation = view.findViewById(R.id.ubicationPhotoButton);
+        useLocationCheckBox = view.findViewById(R.id.useLocationCheck);
         textViewLocation = view.findViewById(R.id.locationTextView);
 
         //permissions
@@ -93,10 +95,15 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
         adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, lens);
         lensSpinner.setAdapter(adapter);
 
-        buttonLocation.setOnClickListener(new View.OnClickListener() {
+        useLocationCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                GetLocation();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    GetLocation();
+                }
+                else {
+                    textViewLocation.setText("Ubicación desactivada");
+                }
             }
         });
 
@@ -118,7 +125,7 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
         try
         {
             locationManager = (LocationManager)getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, 5, AddPhotosFragment.this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 5, AddPhotosFragment.this);
         }
         catch (Exception e)
         {
@@ -161,4 +168,6 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
     {
 
     }
+
+
 }
