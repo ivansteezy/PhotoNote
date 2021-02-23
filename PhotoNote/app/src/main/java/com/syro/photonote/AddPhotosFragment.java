@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -63,6 +66,7 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
     LocationManager locationManager;
 
     private ImageView selectedImageView;
+    Bitmap image;
 
 
     public AddPhotosFragment() {
@@ -130,6 +134,7 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
                 //Here build a model and send it to the database
                 //SendDataToDB();
                 System.out.println(isoSpinner.getSelectedItem().toString());
+                SaveImage(image);
             }
         });
 
@@ -175,22 +180,11 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras)
-    {
-
-    }
-
+    public void onStatusChanged(String provider, int status, Bundle extras) { }
     @Override
-    public void onProviderEnabled(@NonNull String provider)
-    {
-
-    }
-
+    public void onProviderEnabled(@NonNull String provider) { }
     @Override
-    public void onProviderDisabled(@NonNull String provider)
-    {
-
-    }
+    public void onProviderDisabled(@NonNull String provider) { }
 
     public void GetImage(View view)
     {
@@ -227,8 +221,34 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
         if(requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK)
         {
             Bundle extras = data.getExtras();
-            Bitmap image = (Bitmap)extras.get("data");
+            image = (Bitmap)extras.get("data");
             selectedImageView.setImageBitmap(image);
+        }
+    }
+
+    private void SaveImage(Bitmap image)
+    {
+        String path = Environment.getExternalStorageDirectory() + "/DCMI/PhotoNote/";
+        File dir = new File(path);
+        if(!dir.exists())
+            dir.mkdirs();
+
+        String imagePath = dir.getPath() + "/test.jpg";
+        File file = new File(imagePath);
+        if (file.exists())
+            file.delete();
+
+        try
+        {
+            FileOutputStream out = new FileOutputStream(file);
+            image.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+
+            System.out.println("Image saved");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
