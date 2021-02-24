@@ -8,34 +8,219 @@
     tools:context=".PhotoInfo">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_row="1"
         android:layout_column="2"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/displayTakenPhoto"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:src="@drawable/ic_launcher_background" />
 
-        <LinearLayout
+        <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="right">
-            <TextView
-                android:id="@+id/myPhotoInfo"
-                android:layout_width="wrap_content"
+            android:columnCount="2"
+            android:rowCount="1">
+
+            <LinearLayout
+                android:layout_column="0"
+                android:layout_width="270dp"
                 android:layout_height="wrap_content"
-                android:text="24"
-                android:textSize="20dp"
-                android:layout_gravity="center"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_profile"
-                android:layout_gravity="center"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Modelo de la cámara"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/displayCameraModel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Modelo de la camara"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_column="1"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="No. de disparo"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/displayNumberOfShoot"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="1"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+        </GridLayout>
+
+        <GridLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:rowCount="1">
+            <LinearLayout
+                android:layout_column="0"
+                android:layout_width="133dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="ISO"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/displayIso"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="100"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_column="1"
+                android:layout_width="133dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="ISO"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/displayeShutterSpeed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="1/125"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_column="2"
+                android:layout_width="133dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Apertura"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/displayAperture"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="f/12"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+        </GridLayout>
+
+        <GridLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="1">
+            <LinearLayout
+                android:layout_column="0"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:hint="Lente"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Lente"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/displaylens"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Rokkor"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_column="1"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Lente"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/displayFocalLenght"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="50mm"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+        </GridLayout>
+
+        <LinearLayout
+            android:layout_marginTop="40dp"
+            android:layout_column="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Comentarios"
+                android:textSize="12dp"/>
+
+            <TextView
+                android:id="@+id/displayComments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Poca luz"
+                android:textSize="18dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="0dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Ubicación"
+                android:textSize="12dp"/>
+
+            <TextView
+                android:id="@+id/displayLocation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Location"
+                android:textSize="18dp"/>
         </LinearLayout>
     </LinearLayout>
 </GridLayout>

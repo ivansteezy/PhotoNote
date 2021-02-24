@@ -16,9 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Image no."
-        android:layout_marginLeft="20dp"
-        android:gravity="center"
-        android:textSize="25dp"
+        android:layout_gravity="center"
+        android:textSize="20dp"
         android:textStyle="bold"
         android:id="@+id/imageItemText" />
 </LinearLayout>

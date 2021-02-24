@@ -60,7 +60,7 @@ public class MyPhotosRecyclerViewAdapter extends RecyclerView.Adapter<MyPhotosRe
             File imgFile = new File(photosInfo.get(position).getPhotoReference());
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
             holder.m_imageView.setImageBitmap(myBitmap); //each element of array has an path to image
-            holder.m_textView.setText("Image No: " + position);
+            holder.m_textView.setText(photosInfo.get(position).getCameraModel());
         }
         catch (Exception e)
         {
