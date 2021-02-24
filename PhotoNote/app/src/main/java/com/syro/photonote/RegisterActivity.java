@@ -53,8 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         AlertOnUserRegister(v);
     }
 
-    void AlertOnUserRegister(View v)
-    {
+    void AlertOnUserRegister(View v) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Hurra!");
         alert.setMessage("Se ha registrado correctamente!");
