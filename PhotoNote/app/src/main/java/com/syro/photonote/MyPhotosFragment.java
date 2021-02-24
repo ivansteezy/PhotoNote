@@ -22,9 +22,6 @@ public class MyPhotosFragment extends Fragment {
     MyPhotosRecyclerViewAdapter recyclerViewAdapter;
     List<PhotoModel> photosList;
 
-    int[] arr = {R.drawable.ic_launcher_background, R.drawable.ic_launcher_background,
-                 R.drawable.ic_launcher_background, R.drawable.ic_launcher_background};
-
     public MyPhotosFragment() { }
 
     @Override
