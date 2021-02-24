@@ -1,6 +1,8 @@
 package com.syro.photonote;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +17,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.syro.photonote.models.PhotoModel;
+
 import java.io.Console;
+import java.io.File;
+import java.util.List;
 
 public class MyPhotosRecyclerViewAdapter extends RecyclerView.Adapter<MyPhotosRecyclerViewAdapter.MyPhotoViewHolder> {
-    private int []m_items;
+    private List<PhotoModel> photosInfo;
     Context m_context;
 
-    public MyPhotosRecyclerViewAdapter(int[] items, Context context) {
+    public MyPhotosRecyclerViewAdapter(List<PhotoModel> photosInfo, Context context) {
         this.m_context = context;
-        this.m_items = items;
+        this.photosInfo = photosInfo;
     }
 
 
@@ -38,7 +44,7 @@ public class MyPhotosRecyclerViewAdapter extends RecyclerView.Adapter<MyPhotosRe
             public void onClick(View v) {
                 System.out.println("Se ha presionado un item: " + myPhotoViewHolder.getAdapterPosition());
 
-                Fragment mFragment = new PhotoInfo(myPhotoViewHolder.getAdapterPosition());         //Here pass de model of a photo
+                Fragment mFragment = new PhotoInfo(photosInfo.get(myPhotoViewHolder.getAdapterPosition()));         //Here pass de model of a photo
                 FragmentManager fragmentManager = ((AppCompatActivity)m_context).getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.contentFrame, mFragment).commit();
             }
@@ -49,13 +55,22 @@ public class MyPhotosRecyclerViewAdapter extends RecyclerView.Adapter<MyPhotosRe
 
     @Override
     public void onBindViewHolder(@NonNull MyPhotoViewHolder holder, int position) {
-        holder.m_imageView.setImageResource(m_items[position]);
-        holder.m_textView.setText("Image No: " + position);
+        try
+        {
+            File imgFile = new File(photosInfo.get(position).getPhotoReference());
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            holder.m_imageView.setImageBitmap(myBitmap); //each element of array has an path to image
+            holder.m_textView.setText("Image No: " + position);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return m_items.length;
+        return photosInfo.size();
     }
 
     public class MyPhotoViewHolder extends RecyclerView.ViewHolder

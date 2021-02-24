@@ -9,13 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.syro.photonote.models.PhotoModel;
+
 public class PhotoInfo extends Fragment {
 
-    private int m_x;
+    private PhotoModel photoInfo;
     private TextView m_textviewInfo;
 
-    public PhotoInfo(int x) {       //Here recive de photo model extracted from database
-        this.m_x = x;
+    public PhotoInfo(PhotoModel photoInfo)
+    {
+        this.photoInfo = photoInfo;
+        System.out.println(this.photoInfo.getCameraModel());
     }
 
     @Override
@@ -29,7 +33,7 @@ public class PhotoInfo extends Fragment {
         View v = inflater.inflate(R.layout.fragment_photo_info, container, false);
         // Inflate the layout for this fragment
         this.m_textviewInfo = (TextView)v.findViewById(R.id.myPhotoInfo);
-        m_textviewInfo.setText("Esta es la foto no: " + m_x);
+        m_textviewInfo.setText("Esta es la foto no: " + photoInfo.getNumberOfShoot());
         return v;
     }
 }
