@@ -1,7 +1,9 @@
 package com.syro.photonote;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -47,5 +49,23 @@ public class RegisterActivity extends AppCompatActivity {
 
         UsersManager usersManager = new UsersManager();
         usersManager.RegisterNewUser(this, userModel);
+
+        AlertOnUserRegister(v);
+    }
+
+    void AlertOnUserRegister(View v)
+    {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Hurra!");
+        alert.setMessage("Se ha registrado correctamente!");
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
     }
 }
