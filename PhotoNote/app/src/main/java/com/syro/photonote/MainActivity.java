@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         emailLogin = findViewById(R.id.emailLogin);
         passwordLogin = findViewById(R.id.passwordLogin);
+
+        SQLiteConnectionHelper conn = new SQLiteConnectionHelper(this, "db_photoNote", null, 1);
     }
 
     public void OpenRegisterActivity(View view)

@@ -6,9 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLiteConnectionHelper extends SQLiteOpenHelper
 {
-    static final String CREATE_USER_TABLE =  "CREATE TABLE users (id INTEGER, name TEXT, secondName TEXT, email TEXT, password TEXT)";
-    static final String CREATE_PHOTO_TABLE = "CREATE TABLE photos (id INTEGERS, fkUser INTEGER, photoReference TEXT, cameraModel TEXT, " +
-                                             "iso TEXT, shutterSpeed TEXT, aperture TEXT, lightComments TEXT, lens TEXT, focalLenght TEXT, " +
+    static final String CREATE_USER_TABLE =  "CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, secondName TEXT, email TEXT, password TEXT)";
+    static final String CREATE_PHOTO_TABLE = "CREATE TABLE photos (id INTEGER PRIMARY KEY, fkUser INTEGER, photoReference TEXT, cameraModel TEXT, " +
+                                                 "iso TEXT, shutterSpeed TEXT, aperture TEXT, lightComments TEXT, lens TEXT, focalLenght TEXT, " +
                                              "numberofShoot TEXT, photoLocation TEXT)";
 
     public SQLiteConnectionHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {

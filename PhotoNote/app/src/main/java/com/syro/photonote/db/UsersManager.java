@@ -9,7 +9,7 @@ import com.syro.photonote.models.UserModel;
 
 public class UsersManager
 {
-    public void UsersManager(){}
+    public UsersManager(){}
     public void RegisterNewUser(Activity activity, UserModel userModel)
     {
         SQLiteConnectionHelper conn = new SQLiteConnectionHelper(activity, "db_photoNote", null, 1);

@@ -34,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.syro.photonote.db.PhotoManager;
 import com.syro.photonote.models.PhotoModel;
 
 import java.io.File;
@@ -264,8 +265,8 @@ public class AddPhotosFragment extends Fragment implements LocationListener {
         photoModel.setNumberOfShoot(numberOfShootEditText.getText().toString());
         photoModel.setPhotoLocation(textViewLocation.getText().toString());
 
-        //SendDataToDB();
-        System.out.println(photoModel);
+        PhotoManager photoManager = new PhotoManager();
+        photoManager.SavePhotoInDb(getActivity(), photoModel);
     }
 
 
