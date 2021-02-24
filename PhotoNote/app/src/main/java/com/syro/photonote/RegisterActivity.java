@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.syro.photonote.db.UsersManager;
 import com.syro.photonote.models.UserModel;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -20,14 +21,13 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
 
         nameEditText = findViewById(R.id.nameEditText);
         lastNameEditText = findViewById(R.id.lastNameEditText);
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
-
-        setContentView(R.layout.activity_register);
     }
 
     public void OpenLoginActivity(View view)
@@ -39,12 +39,13 @@ public class RegisterActivity extends AppCompatActivity {
     public void RegisterUser(View v)
     {
         UserModel userModel = new UserModel();
-        userModel.setNameEdit(nameEditText.getText().toString());
-        userModel.setLastNameEdit(lastNameEditText.getText().toString());
-        userModel.setEmailEdit(emailEditText.getText().toString());
-        userModel.setPasswordEdit(passwordEditText.getText().toString());
-        userModel.setConfirmPasswordEdit(confirmPasswordEditText.getText().toString());
+        userModel.setName(nameEditText.getText().toString());
+        userModel.setLastName(lastNameEditText.getText().toString());
+        userModel.setEmail(emailEditText.getText().toString());
+        userModel.setPassword(passwordEditText.getText().toString());
+        userModel.setConfirmPassword(confirmPasswordEditText.getText().toString());
 
-
+        UsersManager usersManager = new UsersManager();
+        usersManager.RegisterNewUser(this, userModel);
     }
 }

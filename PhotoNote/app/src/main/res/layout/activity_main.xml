@@ -25,19 +25,22 @@
         tools:layout_editor_absoluteY="60dp">
 
         <EditText
+            android:id="@+id/emailLogin"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:hint="E-mail" />
 
         <EditText
+            android:id="@+id/passwordLogin"
+            android:inputType="textPassword"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:hint="Contrasenia" />
 
         <com.google.android.material.button.MaterialButton
-            android:onClick="OpenHomeActivity"
+            android:onClick="LogIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

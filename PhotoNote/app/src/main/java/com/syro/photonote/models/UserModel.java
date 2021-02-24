@@ -5,49 +5,50 @@ import android.widget.EditText;
 public class UserModel
 {
     public UserModel() {}
-    public String getNameEdit() {
-        return nameEdit;
+
+    public String getName() {
+        return name;
     }
 
-    public void setNameEdit(String nameEdit) {
-        this.nameEdit = nameEdit;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastNameEdit() {
-        return lastNameEdit;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastNameEdit(String lastNameEdit) {
-        this.lastNameEdit = lastNameEdit;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getEmailEdit() {
-        return emailEdit;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailEdit(String emailEdit) {
-        this.emailEdit = emailEdit;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getPasswordEdit() {
-        return passwordEdit;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordEdit(String passwordEdit) {
-        this.passwordEdit = passwordEdit;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getConfirmPasswordEdit() {
-        return confirmPasswordEdit;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setConfirmPasswordEdit(String confirmPasswordEdit) {
-        this.confirmPasswordEdit = confirmPasswordEdit;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
-    private String nameEdit;
-    private String lastNameEdit;
-    private String emailEdit;
-    private String passwordEdit;
-    private String confirmPasswordEdit;
+    private String name;
+    private String lastName;
+    private String email;
+    private String password;
+    private String confirmPassword;
 }
